@@ -1,0 +1,12 @@
+<?
+header("Pragma: public"); 
+header("Expires: 0"); 
+header("Cache-Control: must-revalidate, post-check=0, pre-check=0"); 
+header("Cache-Control: private", false); 
+header("Content-Type: application/x-msexcel"); 
+#header("Content-Disposition: attachment; filename=\"" . iconv('UTF-8', 'CP1251', $object->getFileName()) . "\";"); 
+header("Content-Disposition: attachment; filename=\"report.xls\";"); 
+header("Content-Transfer-Encoding:Â binary"); 
+#header("Content-Length: " . $object->getFileSize()); 
+print $_POST['table'];
+?>

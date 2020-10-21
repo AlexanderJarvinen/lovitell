@@ -1,0 +1,97 @@
+<head>
+
+</head>
+<body>
+<html>
+
+<?
+date_default_timezone_set('Europe/Moscow');
+######### Config ##################
+$year=date('Y');
+$month=date('m');
+$day=date('d');
+$cow=9;
+
+$start=$end=$month.".".$day.".".$year;
+$type=0;
+$now = strtotime("this sunday");
+
+require($_SERVER['DOCUMENT_ROOT'].'/ajax/db.php');
+ $_SESSION['password'];
+ $_SESSION['login'];
+ $numErrorConnections=5;
+ $login='mj';
+ $password='goldwing8517';
+ while (!($db = @mssql_connect($ip, $login, $password)) && $numErrorConnections--) sleep(1);
+    if (!$db){
+	echo "ошибка";
+ }
+$start_week = date('m.d.Y',strtotime( $day.'.'.$month.'.'.$year )-7*9*86400);
+$now = strtotime("this sunday");
+#$start_now =  date('m.d.Y',strtotime("last monday", $now));
+$start_now = date('m.d.Y',strtotime("-6 days"));
+mssql_select_db ("bill", $db);
+    $result = mssql_query('exec bill..report_avaiable_total -2',$db);
+    $dates=$avail=$Palette=array();
+    ?>
+<div class="container">
+    <div class="column1">
+	Доступность оборудования<br>
+	<?=$year?>
+	<img src='/includes/chart_img.php?id=3&start=<?='01'.'.'.'01'.'.'.$year?>&end=<?=date('m.d.Y')?>&type=<?=$type?>&group=2' id='chart1'>
+    </div>
+    <div class="column1">
+	Доступность оборудования<br>
+	Недели
+	<img src='/includes/chart_img.php?id=2&start=<?=$start_week?>&end=<?=date('m.d.Y')?>&type=<?=$type?>&group=2' id='chart2'>
+    </div>
+    <div class="column1">
+	Доступность оборудования<br>
+	Последние 7 дней.
+	<img src='/includes/chart_img.php?id=1&start=<?=$start_now?>&end=<?=date('m.d.Y')?>&type=<?=$type?>&group=2' id='chart3'>
+    </div>
+    <div class="clear"></div>
+
+    <div class="column1">
+	Доступность оборудования опорной сети<br>
+	за сутки <?=date('d.m.Y',strtotime("last day"));?>.
+	<img src='/includes/chart_img.php?id=222&start=<?=date('m.d.Y',strtotime("last day"))?>&end=<?=date('m.d.Y',strtotime("last day"))?>&type=255&group=2' id='chart2'>
+    </div>
+    <div class="column2"></div>
+    <div class="clear"></div>
+
+    <div class="column1">
+	Доступность беспр. обор.<br>
+	Indoor. <?=$year?>
+	<img src='/includes/chart_img.php?id=3&start=<?='01'.'.'.'01'.'.'.$year?>&end=<?=date('m.d.Y')?>&type=-3' id='chart1'>
+    </div>
+    <div class="column1">
+    	Доступность беспр. обор.<br>
+	Indoor. Недели.
+	<img src='/includes/chart_img.php?id=2&start=<?=$start_week?>&end=<?=date('m.d.Y')?>&type=-3' id='chart2'>
+    </div>
+    <div class="column1">
+    	Доступность беспр. обор.<br>
+	Indoor. Последние 7 дней.
+	<img src='/includes/chart_img.php?id=1&start=<?=$start_now?>&end=<?=date('m.d.Y')?>&type=-3' id='chart3'>
+    </div>
+    <div class="clear"></div>
+
+    <div class="column1">
+    	Доступность беспр. обор.<br>
+	Outdoor. <?=$year?>
+	<img src='/includes/chart_img.php?id=3&start=<?='01'.'.'.'01'.'.'.$year?>&end=<?=date('m.d.Y')?>&type=11' id='chart1'>
+    </div>
+    <div class="column1">
+    	Доступность беспр. обор.<br>
+	Outdoor. Недели.
+	<img src='/includes/chart_img.php?id=2&start=<?=$start_week?>&end=<?=date('m.d.Y')?>&type=11' id='chart2'>
+    </div>
+    <div class="column1">
+    	Доступность беспр. обор.<br>
+	Outdoor. Последние 7 дней.
+	<img src='/includes/chart_img.php?id=1&start=<?=$start_now?>&end=<?=date('m.d.Y')?>&type=11' id='chart3'>
+    </div>
+    <div class="clear"></div>
+
+</div>
